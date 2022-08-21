@@ -4,6 +4,7 @@ const env = require('dotenv');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
+var path = require("path");
 
 env.config()
 const mongoUrl = `mongodb+srv://${process.env.DBUSER}:${process.env.DBPASS}@cluster0.qro4t.mongodb.net/${process.env.DATABASE}?retryWrites=true&w=majority`;
@@ -21,6 +22,9 @@ catch (e) {
    console.log('error while connecting database');
 }
 
+app.get('/', function (req, res) {
+   res.sendFile(path.resolve('index.html'));
+})
 const userRoute = require('./routes/userRoutes');
 const productRoute = require('./routes/productRoute');
 const cartRoute = require('./routes/cartRoute');
