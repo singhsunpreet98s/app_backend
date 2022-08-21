@@ -116,17 +116,3 @@ exports.adminLogin = async (req, res, next) => {
    }
 }
 
-exports.getAllUsers = (req, res, next) => {
-   User.find({})
-      .select('  -__v')
-
-      .exec((err, users) => {
-         if (err) {
-            console.log(err)
-            return res.json({ msg: 'error' })
-         }
-         if (users) {
-            return res.json({ data: users })
-         }
-      })
-}

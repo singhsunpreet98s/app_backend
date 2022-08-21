@@ -5,11 +5,7 @@ const { login } = require('./functions/userFuns');
 const { adminLogin } = require('./functions/userFuns')
 const { getAllUsers } = require('./functions/userFuns')
 const { body, validationResult } = require('express-validator');
-const { authenticate } = require('./middlewares/authentications');
-router.get('/getAllUsers',
-   authenticate,
-   getAllUsers
-)
+
 router.post('/signup',
    body('email').isEmail(),
    body('password').isLength({ min: 5 }),
