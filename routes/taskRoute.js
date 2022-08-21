@@ -4,11 +4,19 @@ const { authenticate } = require('./middlewares/authentications');
 const { getTasks } = require('./functions/taskFuns');
 const { addTask } = require('./functions/taskFuns');
 const { addTaskComments } = require('./functions/taskFuns');
-const { body, validationResult } = require('express-validator');
+// searchTaskByName
+const { searchTaskByName } = require('./functions/taskFuns');
+const { body, param, validationResult } = require('express-validator');
 
 router.get('/getTasks',
    authenticate,
+   param('name').isLength({ min: 2 }),
    getTasks);
+
+// searchTaskByName
+router.get('/searchByName',
+   authenticate,
+   searchTaskByName);
 router.post('/addTask',
    authenticate,
    body('taskTitle').isLength({ min: 2 }),
