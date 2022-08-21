@@ -118,7 +118,7 @@ exports.adminLogin = async (req, res, next) => {
 
 exports.getAllUsers = (req, res, next) => {
    User.find({})
-      .select('  -__v')
+      .select('-__v -hashPassword -_id -createdAt -updatedAt')
 
       .exec((err, users) => {
          if (err) {
