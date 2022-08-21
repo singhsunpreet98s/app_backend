@@ -15,6 +15,22 @@ exports.getTasks = (req, res, next) => {
          }
       })
 }
+exports.searchTaskByName = (req, res, next) => {
+   // return res.send({ msg: json.stringify(req) })
+   // console.log(req.query.name);
+   Tasks.find({ taskTitle: { $regex: `.*${req.query.name}.*` }, isdeleted: false })
+      .select('  -__v')
+      .populate('taskComments')
+      .exec((err, task) => {
+         if (err) {
+            console.log(err)
+            return res.json({ msg: 'error' })
+         }
+         if (task) {
+            return res.json({ data: task })
+         }
+      })
+}
 exports.addTask = async (req, res, next) => {
    const errors = validationResult(req);
    if (!errors.isEmpty()) {
